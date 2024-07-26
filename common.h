@@ -22,11 +22,12 @@
 #define BUZZER                0 // 蜂鸣器
 #define AUDIO_IN_PIN          1 // 拾音器
 #define LIGHT_ADC             2 // 光敏电阻ADC引脚
-#define BRIGHTNESS            45 // 默认亮度
+#define POW_LED               3 //电源按钮开关LED控制引脚
+#define BRIGHTNESS            16 // 默认亮度
 #define MATRIX_SIDE           8 //每个矩阵的边长
 #define MATRIX_WIDTH          32 //矩阵总宽度
 #define MATRIX_COUNT          4 //矩阵数量
-#define BRIGHTNESS_SPACING    20 //每次调节亮度的间隔大小
+#define BRIGHTNESS_SPACING    5 //每次调节亮度的间隔大小
 #define RANDOM_SEED_PIN       11 // 随机数种子引脚
 #define NTP3                  "ntp4.ntsc.ac.cn"
 #define NTP2                  "ntp3.ict.ac.cn"
@@ -166,8 +167,7 @@ const String ROOT_HTML_PAGE1 PROGMEM = R"rawliteral(
     </style>
 </head>
 <body>
-    <div id='titleDiv'>EasyMatrix像素钟</div>
-    <div id='tail'>呈杰希工作室&nbsp&nbsp&nbsp&nbsp出品</div>
+    <div id='titleDiv'>像素时钟</div>
     <form action='configwifi' method='post' id='form' accept-charset="UTF-8">
         <div class='titleOption commonWidth'>WiFi名称</div>
         <div id='selectDiv' class='commonWidth'>

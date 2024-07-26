@@ -275,7 +275,7 @@ void btn1click(){
       break;
     case BRIGHT:
       if(brightModel == BRIGHT_MODEL_AUTO) return;
-      if(brightness >= 145){
+      if(brightness >= 61){
         Serial.println("已达最大亮度");
         return;
       }
@@ -371,7 +371,7 @@ void btn2click(){
       break;
     case BRIGHT:
       if(brightModel == BRIGHT_MODEL_AUTO) return;
-      if(brightness <= 5){
+      if(brightness <= 1){
         Serial.println("已达最小亮度");
         return;
       }

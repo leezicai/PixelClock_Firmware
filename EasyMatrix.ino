@@ -21,8 +21,13 @@ EasyMatrix像素时钟  版本1.4
 
 unsigned long prevDisplay = 0;
 unsigned long prevSampling = 0;
+int prevBrightness = -1;
 
 void setup() {
+
+  pinMode(POW_LED, OUTPUT);
+  analogWrite(POW_LED, 100);
+
   Serial.begin(115200);
   // 从NVS中获取信息
   getInfos();
@@ -34,24 +39,24 @@ void setup() {
   btnInit();
   Serial.println("各外设初始化成功");
   // nvs中没有WiFi信息，进入配置页面
-  if(apConfig){
-    currentPage = SETTING; // 将页面置为配网页面
-    wifiConfigBySoftAP(); // 开启SoftAP配置WiFi
-  }else{
+  if (apConfig) {
+    currentPage = SETTING;  // 将页面置为配网页面
+    wifiConfigBySoftAP();   // 开启SoftAP配置WiFi
+  } else {
     // 连接WiFi,30秒超时后显示wifi连接失败的图案
-    connectWiFi(30); 
+    connectWiFi(30);
     // 如果连接上了wifi,就进行NTP对时,超过30秒对时失败，就进入节奏灯页面
-    if(wifiConnected){
+    if (wifiConnected) {
       checkTime(30);
-      if(RTCSuccess){
+      if (RTCSuccess) {
         // 开启对时任务
         startTickerCheckTime();
         // RTC对时成功，并且闹钟开启后，设置闹钟倒计时
-        if(clockOpen){
+        if (clockOpen) {
           startTickerClock(getClockRemainSeconds());
         }
         // 将页面置为时间页面
-        currentPage = TIME; 
+        currentPage = TIME;
         // 停止启动加载文字的动画
         vTaskDelete(showTextTask);
         delay(300);
@@ -64,20 +69,27 @@ void setup() {
   }
 }
 
-void loop() { 
+void loop() {
+
+  // 只有在亮度值发生变化时才更新电源灯的亮度
+  if (brightness != prevBrightness) {
+    analogWrite(POW_LED, brightness * 5);
+    prevBrightness = brightness;
+  }
+
   watchBtn();
-  if(brightModel == BRIGHT_MODEL_AUTO && ((millis() - prevSampling) >= 1000 || prevSampling > millis())){
-    brightSamplingValue+=analogRead(LIGHT_ADC);
+  if (brightModel == BRIGHT_MODEL_AUTO && ((millis() - prevSampling) >= 1000 || prevSampling > millis())) {
+    brightSamplingValue += analogRead(LIGHT_ADC);
     brightSamplingTime++;
     prevSampling = millis();
-    if(brightSamplingTime >= BRIGHT_SAMPLING_TIMES){ // 每轮采样N次重新计算一次亮度值
+    if (brightSamplingTime >= BRIGHT_SAMPLING_TIMES) {  // 每轮采样N次重新计算一次亮度值
       calculateBrightnessValue();
       clearBrightSampling();
     }
   }
-  if(isCheckingTime){ // 对时中
+  if (isCheckingTime) {  // 对时中
     Serial.println("开始对时");
-    long start = millis(); // 记录开始对时的时间
+    long start = millis();  // 记录开始对时的时间
     // 绘制对时提示文字
     drawCheckTimeText();
     // 执行对时逻辑
@@ -85,49 +97,47 @@ void loop() {
     // 将对时标志置为false
     isCheckingTime = false;
     // 让整个对时过程持续超过4秒，不然时间太短，提示文字一闪而过，让人感觉鬼畜了
-    while((millis() - start) < 4000){
+    while ((millis() - start) < 4000) {
       delay(200);
     }
     // 清屏
     clearMatrix();
     Serial.println("结束对时");
     // 结束对时后，重新绘制之前的页面
-    if(currentPage == CLOCK){
+    if (currentPage == CLOCK) {
       drawClock();
-    }else if(currentPage == BRIGHT){
+    } else if (currentPage == BRIGHT) {
       drawBright();
-    }else if(currentPage == ANIM){
+    } else if (currentPage == ANIM) {
       lightedCount = 0;
-      memset(matrixArray,0,sizeof(matrixArray));
+      memset(matrixArray, 0, sizeof(matrixArray));
     }
-  }else{
-    switch(currentPage){
+  } else {
+    switch (currentPage) {
       case SETTING:  // 配置页面
-        doClient(); // 监听客户端配网请求
+        doClient();  // 监听客户端配网请求
         break;
-      case TIME: // 时钟页面       
-        if((millis() - prevDisplay) >= 50 || prevDisplay > millis()){
+      case TIME:  // 时钟页面
+        if ((millis() - prevDisplay) >= 50 || prevDisplay > millis()) {
           // 绘制时间
           drawTime();
           prevDisplay = millis();
         }
         break;
-      case RHYTHM: // 节奏灯页面
+      case RHYTHM:  // 节奏灯页面
         drawRHYTHM();
         break;
-      case ANIM: // 动画页面
+      case ANIM:  // 动画页面
         drawAnim();
         break;
-      case CLOCK: // 闹钟设置页面
+      case CLOCK:  // 闹钟设置页面
         drawClock();
         break;
-      case BRIGHT: // 亮度调节页面
+      case BRIGHT:  // 亮度调节页面
         drawBright();
-        break;  
+        break;
       default:
         break;
     }
-  } 
+  }
 }
-
-

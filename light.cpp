@@ -75,7 +75,12 @@ void clearBrightSampling(){
 void calculateBrightnessValue(){
   int val = brightSamplingValue / brightSamplingTime; // 三次采样平均值
   // Serial.println(val);
-  brightness = map(val, 0, 4095, 1, 65);
+  // brightness = map(val, 0, 4095, 1, 65);
+  if(val >= 700){
+    brightness = map(val, 0, 4095, 0, 31);
+  }else {
+    brightness = 0;
+  }
   // if(val >= 3000){
   //   brightness = 65;
   // }else if(val >= 2000){
@@ -145,7 +150,7 @@ void showIp(){
   matrix.fillScreen(0);
   matrix.setTextColor(mainColor);
   matrix.setCursor(showIpIndex, 6);
-  matrix.print("192.168.1.1");
+  matrix.print("10.0.0.1");
   matrix.setBrightness(brightness);
   matrix.show();
   delay(100);
@@ -529,11 +534,11 @@ void drawBright(){
     matrix.drawFastVLine(17, 2, 4, mainColor);
     matrix.drawFastVLine(18, 3, 2, mainColor);
     // +=号
-    if(brightness > 5){
+    if(brightness > 1){
       matrix.setCursor(3, 6);
       matrix.print("-");
     }
-    if(brightness < 145){
+    if(brightness < 61){
       matrix.setCursor(26, 6);
       matrix.print("+");
     }
