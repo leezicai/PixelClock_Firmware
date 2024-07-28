@@ -28,6 +28,7 @@ void getInfos(){
   clockColor[1] = g;
   clockColor[2] = b;
   mainColor = matrix.Color(clockColor[0], clockColor[1], clockColor[2]);
+  lightColor =  matrix.Color(min(clockColor[0] + 50, 250), min(clockColor[1] + 50, 250),  min(clockColor[2] + 50, 250));
   // 时间下面的星期条颜色，最大的RGB值不变，其他两个取反色
   int maxRGB = max(r, max(g, b)); // 求出RGB三色里的最大值
   bool findMax = false; // 是否找到最大值，防止3个值一样大，都不取反

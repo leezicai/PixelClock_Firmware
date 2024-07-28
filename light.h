@@ -6,6 +6,10 @@
 extern int clockColor[3];
 extern int brightness;
 extern uint16_t mainColor;
+
+extern uint16_t lightColor;
+extern uint16_t lightenAmount;
+
 extern uint16_t weekColor;
 extern Adafruit_NeoMatrix matrix;
 extern int timePage;
