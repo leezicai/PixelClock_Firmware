@@ -25,7 +25,7 @@ String PassHTML; // 根据密码生成的HTML字符串
 String RGBColors; // 根据查询到的NVS中的值生成的RGBinput字符串
 bool apConfig; // 系统启动时是否需要配网
 // SoftAP相关
-const char *APssid = "Pixel";
+const char *APssid = "PIX";
 IPAddress staticIP(10, 0, 0, 1);
 IPAddress gateway(10, 0, 0, 255);
 IPAddress subnet(255, 255, 255, 0);
