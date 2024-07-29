@@ -1016,7 +1016,7 @@ void drawTime(){
     if(timeModel == TIME_MODEL_DIRECT || drawTimeFirstTime || hour == timeinfo.tm_hour){
       int tt = hour % 10 ;
       String ss_1 = String(tt) + String((hour +1)% 10) + "0";
-      String ss_2 = String(hour /10) + String(minu/10+1) + "0";
+      String ss_2 = String(hour /10) + String(hour/10+1) + "0";
 
       drawLargeChar3D(6, 1, ss_1, mainColor,lightColor);
       drawLargeChar3D(2, 1, ss_2, mainColor,lightColor);
