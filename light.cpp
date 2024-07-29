@@ -988,7 +988,7 @@ void showIp(){
   matrix.fillScreen(0);
   matrix.setTextColor(mainColor);
   matrix.setCursor(showIpIndex, 6);
-  matrix.print("10.0.0.1");
+  matrix.print("PIX:10.0.0.1");
   matrix.setBrightness(brightness);
   matrix.show();
   delay(100);
@@ -1034,7 +1034,7 @@ void drawTime(){
       String ss_1 ; // String(tt) + String(timeinfo.tm_hour  % 10)+ String((timeIndex+1)/3);      
       String ss_2 ;
       if(hour / 10 != timeinfo.tm_hour / 10){ // 个进位了，两个数字都要动画刷新
-        if(hour / 10 < 2) {
+        if(hour / 10 < 3) {
           ss_1 = String(tt) + String(timeinfo.tm_hour  % 10)+ String((timeIndex+1)/3);
           ss_2 = String(timeinfo.tm_hour/10-1) + String(timeinfo.tm_hour/10) + String((timeIndex+1)/3);
         } else {
