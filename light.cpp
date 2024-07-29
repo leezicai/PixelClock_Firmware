@@ -1014,13 +1014,12 @@ void drawTime(){
     matrix.fillScreen(0);
     // 绘制时
     if(timeModel == TIME_MODEL_DIRECT || drawTimeFirstTime || hour == timeinfo.tm_hour){
-      int tt = (timeinfo.tm_hour + 10 ) % 10 ;
-      String ss_1 = String(tt) + String((timeinfo.tm_hour +1 )% 10) + "0";
-      String ss_2 = String(timeinfo.tm_hour /10) + String(timeinfo.tm_hour/10+1) + "0";
+      int tt = hour % 10 ;
+      String ss_1 = String(tt) + String((hour +1)% 10) + "0";
+      String ss_2 = String(hour /10) + String(minu/10+1) + "0";
 
       drawLargeChar3D(6, 1, ss_1, mainColor,lightColor);
       drawLargeChar3D(2, 1, ss_2, mainColor,lightColor);
-
       // matrix.setCursor(2, 5);
       // String h;
       // if(timeinfo.tm_hour < 10){
@@ -1030,20 +1029,20 @@ void drawTime(){
       // }
       // matrix.print(h);
     }else if(hour != timeinfo.tm_hour){ 
-      int tt = (timeinfo.tm_hour + 10 - 1) % 10 ;
+      int tt = hour % 10 ;
       String ss_1 ; // String(tt) + String(timeinfo.tm_hour  % 10)+ String((timeIndex+1)/3);      
       String ss_2 ;
-      if(hour / 10 != timeinfo.tm_hour / 10){ // 个进位了，两个数字都要动画刷新
-        if(hour / 10 < 3) {
-          ss_1 = String(tt) + String(timeinfo.tm_hour  % 10)+ String((timeIndex+1)/3);
-          ss_2 = String(timeinfo.tm_hour/10-1) + String(timeinfo.tm_hour/10) + String((timeIndex+1)/3);
+      if(hour / 10 != timeinfo.tm_hour / 10){ // 时进位了，两个数字都要动画刷新
+        if(hour / 10 < 2) {
+          ss_1 = String(tt) + String((hour+1) % 10)+ String((timeIndex+1)/3);
+          ss_2 = String(hour/10) + String((hour+1)/10) + String((timeIndex+1)/3);
         } else {
-          ss_1 = String(tt) + String(timeinfo.tm_hour  % 10 % 3)+ String((timeIndex+1)/3);
-          ss_2 = String(timeinfo.tm_hour/10-1) + "0" + String((timeIndex+1)/3);
+          ss_1 = String(tt) + "0"+ String((timeIndex+1)/3);
+          ss_2 = String(hour/10) + "0" + String((timeIndex+1)/3);
         }
       } else {
-        ss_1 = String(tt) + String(timeinfo.tm_hour  % 10)+ String((timeIndex+1)/3);
-        ss_2 = String(timeinfo.tm_hour /10) + String(timeinfo.tm_hour/10+1) + "0";
+        ss_1 = String(tt) + String((tt+1) % 10)+ String((timeIndex+1)/3);
+        ss_2 = String(hour /10) + String(hour/10+1) + "0";
       }
       drawLargeChar3D(6, 1, ss_1, mainColor,lightColor);
       drawLargeChar3D(2, 1, ss_2, mainColor,lightColor);
@@ -1072,21 +1071,21 @@ void drawTime(){
     }
     // 绘制分
     if(timeModel == TIME_MODEL_DIRECT || drawTimeFirstTime || minu == timeinfo.tm_min){
-       int tt = (timeinfo.tm_min + 10 ) % 10 ;
-      String ss_1 = String(tt) + String((timeinfo.tm_min +1 )% 10) + "0";
-      String ss_2 = String(timeinfo.tm_min /10) + String(timeinfo.tm_min/10+1) + "0";
+      int tt = minu % 10 ;
+      String ss_1 = String(tt) + String((minu +1 )% 10) + "0";
+      String ss_2 = String(minu/10) + String((minu/10+1)%6) + "0";
 
       drawLargeChar3D(16, 1, ss_1, mainColor,lightColor);
       drawLargeChar3D(12, 1, ss_2, mainColor,lightColor);
-    }else if(minu != timeinfo.tm_min){
 
-      int tt = (timeinfo.tm_min + 10 - 1) % 10 ;
-      String ss_1 = String(tt) + String(timeinfo.tm_min  % 10)+ String((timeIndex+1)/3);      
+    }else if(minu != timeinfo.tm_min){
+      int tt = minu % 10 ;
+      String ss_1 = String(tt) + String((minu+1) % 10)+ String((timeIndex+1)/3);      
       String ss_2 ;
-      if(minu / 10 != timeinfo.tm_min / 10){ // 个进位了，两个数字都要动画刷新
-        ss_2 = String(timeinfo.tm_min/10-1) + String(timeinfo.tm_min/10) + String((timeIndex+1)/3);
+      if(minu / 10 != timeinfo.tm_min / 10){ // 分进位了，两个数字都要动画刷新
+        ss_2 = String(minu/10) + String((minu+1)/10) + String((timeIndex+1)/3);
       } else {
-         ss_2 = String(timeinfo.tm_min /10) + String(timeinfo.tm_min/10+1) + "0";
+         ss_2 = String(minu/10) + String((minu/10+1)%6) + "0";
       }
       drawLargeChar3D(16, 1, ss_1, mainColor,lightColor);
       drawLargeChar3D(12, 1, ss_2, mainColor,lightColor);
@@ -1123,23 +1122,21 @@ void drawTime(){
     }
     // 绘制秒
     if(timeModel == TIME_MODEL_DIRECT || drawTimeFirstTime || sec == timeinfo.tm_sec){
-      int tt = (timeinfo.tm_sec + 10 ) % 10 ;
-      String ss_1 = String(tt) + String((timeinfo.tm_sec +1 )% 10) + "0";
-      String ss_2 = String(timeinfo.tm_sec /10) + String(timeinfo.tm_sec/10+1) + "0";
+      int tt = sec % 10 ;
+      String ss_1 = String(tt) + String((sec +1 )% 10) + "0";
+      String ss_2 = String(sec/10) + String((sec/10+1)%6) + "0";
 
       drawLargeChar3D(26, 1, ss_1, mainColor,lightColor);
       drawLargeChar3D(22, 1, ss_2, mainColor,lightColor);
     }else if(sec != timeinfo.tm_sec){
 
-      int tt = (timeinfo.tm_sec + 10 - 1) % 10 ;
-      int tt_next_s1 = timeinfo.tm_sec  % 10;
-      int tt_next_s2 ;
-      String ss_1 = String(tt) + String(timeinfo.tm_sec  % 10)+ String((timeIndex+1)/3);      
+      int tt = sec % 10 ;
+      String ss_1 = String(tt) + String((tt+1) % 10)+ String((timeIndex+1)/3);      
       String ss_2 ;
       if(sec / 10 != timeinfo.tm_sec / 10){ // 秒进位了，两个数字都要动画刷新
-        ss_2 = String(timeinfo.tm_sec/10-1) + String(timeinfo.tm_sec/10) + String((timeIndex+1)/3);
+        ss_2 = String(sec/10) + String((sec+1)/10) + String((timeIndex+1)/3);
       } else {
-         ss_2 = String(timeinfo.tm_sec /10) + String(timeinfo.tm_sec/10+1) + "0";
+         ss_2 = String(sec/10) + String((sec/10+1)%6) + "0";
       }
       drawLargeChar3D(26, 1, ss_1, mainColor,lightColor);
       drawLargeChar3D(22, 1, ss_2, mainColor,lightColor);
