@@ -1083,7 +1083,7 @@ void drawTime(){
       String ss_1 = String(tt) + String((minu+1) % 10)+ String((timeIndex+1)/3);      
       String ss_2 ;
       if(minu / 10 != timeinfo.tm_min / 10){ // 分进位了，两个数字都要动画刷新
-        ss_2 = String(minu/10) + String((minu+1)/10) + String((timeIndex+1)/3);
+        ss_2 = String(minu/10) + String((minu/10+1)%6) + String((timeIndex+1)/3);
       } else {
          ss_2 = String(minu/10) + String((minu/10+1)%6) + "0";
       }
@@ -1134,7 +1134,7 @@ void drawTime(){
       String ss_1 = String(tt) + String((tt+1) % 10)+ String((timeIndex+1)/3);      
       String ss_2 ;
       if(sec / 10 != timeinfo.tm_sec / 10){ // 秒进位了，两个数字都要动画刷新
-        ss_2 = String(sec/10) + String((sec+1)/10) + String((timeIndex+1)/3);
+        ss_2 = String(sec/10) + String((sec/10+1)%6) + String((timeIndex+1)/3);
       } else {
          ss_2 = String(sec/10) + String((sec/10+1)%6) + "0";
       }
