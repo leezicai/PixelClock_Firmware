@@ -22,6 +22,7 @@ EasyMatrix像素时钟  版本1.4
 unsigned long prevDisplay = 0;
 unsigned long prevSampling = 0;
 int prevBrightness = -1;
+struct tm timeinfo;
 
 void setup() {
 
@@ -75,6 +76,10 @@ void loop() {
   if (brightness != prevBrightness) {
     analogWrite(POW_LED, brightness * 5);
     prevBrightness = brightness;
+  }
+
+  if(timeinfo.tm_hour % 2 == 1 && timeinfo.tm_min == 0 && timeinfo.tm_sec == 0) {
+    getNTPTime();
   }
 
   watchBtn();
