@@ -1441,7 +1441,7 @@ void drawBright(){
 // 绘制动画页面
 void drawAnim(){
   if(animPage == ANIM_MODEL1){
-    if((millis() - animTime) < animInterval1) return;
+    if((millis() - animTime) < animInterval1 * 1.25) return;
     matrix.fillScreen(0);
     randomSeed(analogRead(RANDOM_SEED_PIN));
     for(int i = 0; i < MATRIX_COUNT * MATRIX_SIDE; i++){
