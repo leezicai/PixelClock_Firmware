@@ -194,7 +194,7 @@ void drawLargeChar3D(int16_t x, int16_t y, String c, uint16_t color, uint16_t li
         matrix.drawLine(x , y, x + 2, y, color);
         matrix.drawLine(x + 1, y+1, x + 2, y+1, color);
         matrix.drawLine(x, y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x, y + 3, x + 1, y + 3, color);
+        matrix.drawLine(x + 1, y + 3, x + 2, y + 3, color);
         matrix.drawLine(x, y + 4, x + 2, y + 4, color);
     } else if (c == "302") {
         // 绘制302

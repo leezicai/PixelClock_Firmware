@@ -39,7 +39,7 @@
 #define NOISE                 1770   //噪音
 #define BAR_WIDTH             1 //每个频段的宽度
 #define ONE_DAY_SECONDS       24 * 60 * 60 // 一天的秒数
-#define TIME_CHECK_INTERVAL   18000 // NTP对时间隔（s）, 18000秒即为5小时
+#define TIME_CHECK_INTERVAL   10800 // NTP对时间隔（s）, 18000秒即为5小时
 #define BRIGHT_SAMPLING_TIMES 1 // 每轮亮度采样次数
 
 // 时钟页面下的小页面
