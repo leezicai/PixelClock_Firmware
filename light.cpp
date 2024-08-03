@@ -97,568 +97,19 @@ void calculateBrightnessValue(){
   // Serial.println(brightness);
 }
 
-// 定制动画
-void drawLargeChar(int16_t x, int16_t y, String c, uint16_t color, uint16_t light_color) {
-   if (c == "00") {
-        // 绘制00
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x, y + 1, x, y + 3, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "01") {
-        // 绘制01
-        matrix.drawLine(x + 1, y, x + 1, y + 3, color);
-        matrix.drawLine(x , y + 1, x, y + 1, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "02") {
-        // 绘制02
-        matrix.drawLine(x + 1, y, x + 1, y + 4, color);
-        matrix.drawLine(x , y + 1, x, y + 1, color); 
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "10") {
-        // 绘制10
-        matrix.drawLine(x + 1, y, x + 1, y + 4, color); 
-        matrix.drawLine(x , y + 1, x, y + 1, color); 
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "11") {
-        // 绘制11
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 1, y + 1, x + 1, y + 3, color);
-
-    } else if (c == "12") {
-        // 绘制12
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y + 3, x, y + 3, color);
-    } else if (c == "20") {
-        // 绘制20
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y + 3, x, y + 3, color);
-    } else if (c == "21") {
-        // 绘制21
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x + 1, y + 3, x + 1, y + 3, color);
-    } else if (c == "22") {
-        // 绘制22
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-    } else if (c == "30") {
-        // 绘制30
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-    } else if (c == "31") {
-        // 绘制31
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x + 1, y+1, x + 2, y+1, color);
-
-        matrix.drawLine(x, y + 2, x + 2, y + 2, color);
-
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-        matrix.drawLine(x + 1, y + 4, x + 2, y + 4, color);
-    } else if (c == "32") {
-        // 绘制32
-        matrix.drawLine(x , y, x, y + 2, color);
-        matrix.drawLine(x + 2, y, x + 2, y + 4, color);
-        matrix.drawLine(x + 1, y + 2, x + 1, y + 2, color);
-        
-    } else if (c == "40") {
-        // 绘制40
-        matrix.drawLine(x , y, x, y + 2, color);
-        matrix.drawLine(x + 2, y, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 1, y + 2, x + 1, y + 2, color);
-    } else if (c == "41") {
-        // 绘制41
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y+1, x + 1, y + 1, color);
-
-        matrix.drawLine(x, y + 2, x + 2, y + 2, color);
-
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-
-        matrix.drawLine(x + 1, y + 4, x + 2, y + 4, color);
-    } else if (c == "42") {
-        // 绘制452
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y+1, x , y + 1, color);
-
-        matrix.drawLine(x, y + 2, x + 2, y + 2, color);
-
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "50") {
-        // 绘制560
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y+1, x , y + 1, color);
-
-        matrix.drawLine(x, y + 2, x + 2, y + 2, color);
-
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    }  else if (c == "51") {
-        // 绘制561
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 1, x , y + 1, color);
-        matrix.drawLine(x, y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x + 1, y + 3, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "52") {
-        // 绘制562
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 1, x , y + 1, color);
-        matrix.drawLine(x, y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x, y + 3, x, y + 3, color);
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "60") {
-        // 绘制670
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 1, x , y + 1, color);
-        matrix.drawLine(x, y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x, y + 3, x, y + 3, color);
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "61") {
-        // 绘制61
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x + 1, y + 1, x + 1, y + 1, color);
-        matrix.drawLine(x + 1, y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x + 1, y + 3, x + 2, y + 3, color);
-        matrix.drawLine(x + 1, y + 4, x + 2, y + 4, color);
-    } else if (c == "62") {
-        // 绘制62
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 4, color);
-    } else if (c == "70") {
-        // 绘制780
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 4, color);
-    } else if (c == "71") {
-        // 绘制781
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x + 1, y + 1, x + 1, y + 4, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 4, color);
-    } else if (c == "72") {
-        // 绘制782
-        matrix.drawLine(x , y, x , y + 4, color);
-        matrix.drawLine(x + 2, y, x + 2, y + 4, color);
-        matrix.drawLine(x + 1, y, x + 1, y, color);
-        matrix.drawLine(x + 1, y + 2, x + 1, y + 2, color);
-        matrix.drawLine(x + 1, y + 4, x + 1, y + 4, color);
-    } else if (c == "80") {
-        // 绘制890
-        matrix.drawLine(x , y, x , y + 4, color);
-        matrix.drawLine(x + 2, y, x + 2, y + 4, color);
-        matrix.drawLine(x + 1, y, x + 1, y, color);
-        matrix.drawLine(x + 1, y + 2, x + 1, y + 2, color);
-        matrix.drawLine(x + 1, y + 4, x + 1, y + 4, color);
-    } else if (c == "81") {
-        // 绘制891
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 1, x, y + 1, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x + 1, y + 3, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "82") {
-        // 绘制892
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 1, x, y + 1, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "90") {
-        // 绘制900
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 1, x, y + 1, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "91") {
-         // 绘制91
-        matrix.drawLine(x , y, x, y + 2, color);
-        matrix.drawLine(x+1 , y, x+1, y + 1, color);
-        matrix.drawLine(x+2, y, x+2, y + 4, color);
-
-        matrix.drawLine(x+1, y + 3, x+1, y + 4, color);
-        matrix.drawLine(x, y + 4, x, y + 4, color);
-    } else if (c == "92") {
-        // 绘制902
-        matrix.drawLine(x , y, x + 2, y, light_color);
-        matrix.drawLine(x, y + 1, x, y + 3, light_color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 3, light_color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, light_color);
-    } else if (c == ":") {
-        // 绘制:
-        matrix.drawPixel(x, y + 2, color); // 上点
-        matrix.drawPixel(x, y + 4, color); // 下点
-    } else {
-      matrix.drawPixel(x, y + 2, color); // 上点
-      matrix.drawPixel(x, y + 4, color); // 下点
-        // 默认情况，不做任何操作
-    }
-}
-
-// 定制动画十位
-void drawLargeCharHMS_T(int16_t x, int16_t y, String c, uint16_t color, uint16_t light_color) {
-   if (c == "00") {
-        // 绘制00
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x, y + 1, x, y + 3, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "01") {
-        // 绘制01
-        matrix.drawLine(x + 1, y, x + 1, y + 3, color);
-        matrix.drawLine(x , y + 1, x, y + 1, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "02") {
-        // 绘制02
-        matrix.drawLine(x + 1, y, x + 1, y + 4, color);
-        matrix.drawLine(x , y + 1, x, y + 1, color); 
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "10") {
-        // 绘制10
-        matrix.drawLine(x + 1, y, x + 1, y + 4, color); 
-        matrix.drawLine(x , y + 1, x, y + 1, color); 
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "11") {
-        // 绘制11
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 1, y + 1, x + 1, y + 3, color);
-
-    } else if (c == "12") {
-        // 绘制12
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y + 3, x, y + 3, color);
-    } else if (c == "20") {
-        // 绘制20
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y + 3, x, y + 3, color);
-    } else if (c == "21") {
-        // 绘制21
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x + 1, y + 3, x + 1, y + 3, color);
-    } else if (c == "22") {
-        // 绘制22
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-    } else if (c == "30") {
-        // 绘制30
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-    } else if (c == "31") {
-        // 绘制31
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x + 1, y+1, x + 2, y+1, color);
-
-        matrix.drawLine(x, y + 2, x + 2, y + 2, color);
-
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-        matrix.drawLine(x + 1, y + 4, x + 2, y + 4, color);
-    } else if (c == "32") {
-        // 绘制32
-        matrix.drawLine(x , y, x, y + 2, color);
-        matrix.drawLine(x + 2, y, x + 2, y + 4, color);
-        matrix.drawLine(x + 1, y + 2, x + 1, y + 2, color);
-
-    } else if (c == "40") {
-        // 绘制40
-        matrix.drawLine(x , y, x, y + 2, color);
-        matrix.drawLine(x + 2, y, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 1, y + 2, x + 1, y + 2, color);
-    } else if (c == "41") {
-        // 绘制41
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y+1, x + 1, y + 1, color);
-
-        matrix.drawLine(x, y + 2, x + 2, y + 2, color);
-
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-
-        matrix.drawLine(x + 1, y + 4, x + 2, y + 4, color);
-    } else if (c == "42") {
-        // 绘制452
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y+1, x , y + 1, color);
-
-        matrix.drawLine(x, y + 2, x + 2, y + 2, color);
-
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "50") {
-        // 绘制560
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y+1, x , y + 1, color);
-
-        matrix.drawLine(x, y + 2, x + 2, y + 2, color);
-
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    }  else if (c == "51") {
-        // 绘制51
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 1, x + 1, y + 1, color);
-
-        matrix.drawLine(x, y + 2, x, y + 2, color);
-        matrix.drawLine(x + 2, y + 2, x + 2, y + 2, color);
-
-        matrix.drawLine(x + 1, y + 3, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "52") {
-        // 绘制52
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x, y + 1, x, y + 3, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    }else if (c == ":") {
-        // 绘制:
-        matrix.drawPixel(x, y + 2, color); // 上点
-        matrix.drawPixel(x, y + 4, color); // 下点
-    } else {
-      matrix.drawLine(x , y, x + 2, y, color);
-      matrix.drawLine(x , y + 1, x + 1, y + 1, color);
-
-      matrix.drawLine(x, y + 2, x, y + 2, color);
-      matrix.drawLine(x + 2, y + 2, x + 2, y + 2, color);
-      matrix.drawLine(x + 1, y + 3, x + 2, y + 3, color);
-      matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    }
-}
-
-// 定制动画, 小时位
-void drawLargeCharH_T1(int16_t x, int16_t y, String c, uint16_t color, uint16_t light_color) {
-   if (c == "00") {
-        // 绘制00
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x, y + 1, x, y + 3, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "01") {
-        // 绘制01
-        matrix.drawLine(x + 1, y, x + 1, y + 3, color);
-        matrix.drawLine(x , y + 1, x, y + 1, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "02") {
-        // 绘制02
-        matrix.drawLine(x + 1, y, x + 1, y + 4, color);
-        matrix.drawLine(x , y + 1, x, y + 1, color); 
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "10") {
-        // 绘制10
-        matrix.drawLine(x + 1, y, x + 1, y + 4, color); 
-        matrix.drawLine(x , y + 1, x, y + 1, color); 
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "11") {
-        // 绘制11
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 1, y + 1, x + 1, y + 3, color);
-
-    } else if (c == "12") {
-        // 绘制12
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y + 3, x, y + 3, color);
-    } else if (c == "20") {
-        // 绘制20
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y + 3, x, y + 3, color);
-    } else if (c == "21") {
-        // 绘制21
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x + 1, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y+2, x + 2, y+2, color);
-        matrix.drawLine(x , y+3, x + 1, y+3, color);
-        matrix.drawLine(x , y+4, x + 2, y+4, color);
-    } else if (c == "22") {
-        // 绘制22
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x, y + 1, x, y + 3, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == ":") {
-        // 绘制:
-        matrix.drawPixel(x, y + 2, color); // 上点
-        matrix.drawPixel(x, y + 4, color); // 下点
-    } else {
-      matrix.drawPixel(x, y + 2, color); // 上点
-      matrix.drawPixel(x, y + 4, color); // 下点
-        // 默认情况，不做任何操作
-    }
-}
-
-// 定制动画, 20小时后个位
-void drawLargeCharH_T22(int16_t x, int16_t y, String c, uint16_t color, uint16_t light_color) {
-   if (c == "00") {
-        // 绘制00
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x, y + 1, x, y + 3, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "01") {
-        // 绘制01
-        matrix.drawLine(x + 1, y, x + 1, y + 3, color);
-        matrix.drawLine(x , y + 1, x, y + 1, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "02") {
-        // 绘制02
-        matrix.drawLine(x + 1, y, x + 1, y + 4, color);
-        matrix.drawLine(x , y + 1, x, y + 1, color); 
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "10") {
-        // 绘制10
-        matrix.drawLine(x + 1, y, x + 1, y + 4, color); 
-        matrix.drawLine(x , y + 1, x, y + 1, color); 
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "11") {
-        // 绘制11
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 1, y + 1, x + 1, y + 3, color);
-
-    } else if (c == "12") {
-        // 绘制12
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y + 3, x, y + 3, color);
-    } else if (c == "20") {
-        // 绘制20
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y + 3, x, y + 3, color);
-    } else if (c == "21") {
-        // 绘制21
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x + 1, y + 3, x + 1, y + 3, color);
-    } else if (c == "22") {
-        // 绘制22
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-    } else if (c == "30") {
-        // 绘制30
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
-    } else if (c == "31") {
-        // 绘制31
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x +1, y + 1, x + 2, y + 1, color);
-        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
-        matrix.drawLine(x +1, y + 3, x + 2, y + 3, color);
-        matrix.drawLine(x, y + 4, x + 2, y + 3, color);
-    } else if (c == "32") {
-        // 绘制32
-        matrix.drawLine(x , y, x + 2, y, color);
-        matrix.drawLine(x, y + 1, x, y + 3, color);
-        matrix.drawLine(x + 2, y + 1, x + 2, y + 3, color);
-        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-
-    } else if (c == ":") {
-        // 绘制:
-        matrix.drawPixel(x, y + 2, color); // 上点
-        matrix.drawPixel(x, y + 4, color); // 下点
-    } else {
-      matrix.drawPixel(x, y + 2, color); // 上点
-      matrix.drawPixel(x, y + 4, color); // 下点
-        // 默认情况，不做任何操作
-    }
-}
-
-
 // 定制动画, 3维数组
 void drawLargeChar3D(int16_t x, int16_t y, String c, uint16_t color, uint16_t light_color) {
    if (c == "010") {
         // 绘制00
-      matrix.drawLine(x , y, x + 2, y, color);
-      matrix.drawLine(x, y + 1, x, y + 3, color);
-      matrix.drawLine(x + 2, y + 1, x + 2, y + 3, color);
-      matrix.drawLine(x , y + 4, x + 2, y + 4, color);
+        matrix.drawLine(x , y, x + 2, y, color);
+        matrix.drawLine(x, y + 1, x, y + 3, color);
+        matrix.drawLine(x + 2, y + 1, x + 2, y + 3, color);
+        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
     } else if (c == "011") {
         // 绘制01
-      matrix.drawLine(x + 1, y, x + 1, y + 3, color);
-      matrix.drawLine(x , y + 1, x, y + 1, color);
-      matrix.drawLine(x , y + 4, x + 2, y + 4, color);
+        matrix.drawLine(x + 1, y, x + 1, y + 3, color);
+        matrix.drawLine(x , y + 1, x, y + 1, color);
+        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
     } else if (c == "012") {
         // 绘制02
         matrix.drawLine(x + 1, y, x + 1, y + 4, color);
@@ -670,7 +121,7 @@ void drawLargeChar3D(int16_t x, int16_t y, String c, uint16_t color, uint16_t li
         matrix.drawLine(x , y + 1, x, y + 1, color); 
         matrix.drawLine(x , y + 4, x + 2, y + 4, color);
     } else if (c == "121") {
-        // 绘制11
+        // 绘制121
         matrix.drawLine(x , y, x + 2, y, color);
         matrix.drawLine(x , y + 2, x + 2, y + 2, color);
         matrix.drawLine(x , y + 4, x + 2, y + 4, color);
@@ -678,15 +129,15 @@ void drawLargeChar3D(int16_t x, int16_t y, String c, uint16_t color, uint16_t li
         matrix.drawLine(x + 1, y + 1, x + 1, y + 3, color);
 
     } else if (c == "122") {
-        // 绘制12
+        // 绘制122
         matrix.drawLine(x , y, x + 2, y, color);
         matrix.drawLine(x , y + 2, x + 2, y + 2, color);
         matrix.drawLine(x , y + 4, x + 2, y + 4, color);
 
         matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
         matrix.drawLine(x , y + 3, x, y + 3, color);
-    }else if (c == "200") {
-        // 绘制20
+    } else if (c == "200") {
+        // 绘制200
         matrix.drawLine(x , y, x + 2, y, color);
         matrix.drawLine(x , y + 2, x + 2, y + 2, color);
         matrix.drawLine(x , y + 4, x + 2, y + 4, color);
@@ -694,14 +145,14 @@ void drawLargeChar3D(int16_t x, int16_t y, String c, uint16_t color, uint16_t li
         matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
         matrix.drawLine(x , y + 3, x, y + 3, color);
     } else if (c == "201") {
-        // 绘制21
+        // 绘制201
         matrix.drawLine(x , y, x + 2, y, color);
         matrix.drawLine(x + 1, y + 1, x + 2, y + 1, color);
         matrix.drawLine(x , y + 2, x + 2, y + 2, color);
         matrix.drawLine(x , y + 3, x + 1, y + 3, color);
         matrix.drawLine(x , y + 4, x + 2, y + 4, color);
     } else if (c == "202") {
-        // 绘制22
+        // 绘制202
         matrix.drawLine(x , y, x + 2, y, color);
         matrix.drawLine(x, y + 1, x, y + 3, color);
         matrix.drawLine(x + 2, y + 1, x + 2, y + 3, color);
@@ -730,6 +181,28 @@ void drawLargeChar3D(int16_t x, int16_t y, String c, uint16_t color, uint16_t li
 
         matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
         matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
+    } else if (c == "300") {
+        // 绘制30
+        matrix.drawLine(x , y, x + 2, y, color);
+        matrix.drawLine(x , y + 2, x + 2, y + 2, color);
+        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
+
+        matrix.drawLine(x + 2, y + 1, x + 2, y + 1, color);
+        matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
+    } else if (c == "301") {
+        // 绘制301
+        matrix.drawLine(x , y, x + 2, y, color);
+        matrix.drawLine(x + 1, y+1, x + 2, y+1, color);
+        matrix.drawLine(x, y + 2, x + 2, y + 2, color);
+        matrix.drawLine(x, y + 3, x + 1, y + 3, color);
+        matrix.drawLine(x, y + 4, x + 2, y + 4, color);
+    } else if (c == "302") {
+        // 绘制302
+        matrix.drawLine(x , y, x + 2, y, color);
+        matrix.drawLine(x, y + 1, x, y + 3, color);
+        matrix.drawLine(x + 2, y + 1, x + 2, y + 3, color);
+        matrix.drawLine(x , y + 4, x + 2, y + 4, color);
+
     } else if (c == "340") {
         // 绘制30
         matrix.drawLine(x , y, x + 2, y, color);
@@ -779,7 +252,7 @@ void drawLargeChar3D(int16_t x, int16_t y, String c, uint16_t color, uint16_t li
         matrix.drawLine(x + 2, y + 3, x + 2, y + 3, color);
 
         matrix.drawLine(x , y + 4, x + 2, y + 4, color);
-    } else if (c == "500") {
+    }else if (c == "500") {
         // 绘制560
         matrix.drawLine(x , y, x + 2, y, color);
         matrix.drawLine(x , y+1, x , y + 1, color);
@@ -926,6 +399,7 @@ void drawLargeChar3D(int16_t x, int16_t y, String c, uint16_t color, uint16_t li
         matrix.drawLine(x , y + 4, x + 2, y + 4, color);
     }
 }
+
 
 
 
@@ -1135,6 +609,8 @@ void drawTime(){
       String ss_2 ;
       if(sec / 10 != timeinfo.tm_sec / 10){ // 秒进位了，两个数字都要动画刷新
         ss_2 = String(sec/10) + String((sec/10+1)%6) + String((timeIndex+1)/3);
+          Serial.println(String(sec/10));
+          Serial.println(String((sec/10+1)%6));
       } else {
          ss_2 = String(sec/10) + String((sec/10+1)%6) + "0";
       }
