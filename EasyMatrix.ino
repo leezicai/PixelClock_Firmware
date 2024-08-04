@@ -78,10 +78,6 @@ void loop() {
     prevBrightness = brightness;
   }
 
-  if(timeinfo.tm_hour % 2 == 1 && timeinfo.tm_min == 0 && timeinfo.tm_sec == 0) {
-    getNTPTime();
-  }
-
   watchBtn();
   if (brightModel == BRIGHT_MODEL_AUTO && ((millis() - prevSampling) >= 1000 || prevSampling > millis())) {
     brightSamplingValue += analogRead(LIGHT_ADC);
