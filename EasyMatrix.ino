@@ -22,7 +22,6 @@ EasyMatrix像素时钟  版本1.4
 unsigned long prevDisplay = 0;
 unsigned long prevSampling = 0;
 int prevBrightness = -1;
-struct tm timeinfo;
 
 void setup() {
 
