@@ -609,8 +609,6 @@ void drawTime(){
       String ss_2 ;
       if(sec / 10 != timeinfo.tm_sec / 10){ // 秒进位了，两个数字都要动画刷新
         ss_2 = String(sec/10) + String((sec/10+1)%6) + String((timeIndex+1)/3);
-          Serial.println(String(sec/10));
-          Serial.println(String((sec/10+1)%6));
       } else {
          ss_2 = String(sec/10) + String((sec/10+1)%6) + "0";
       }
