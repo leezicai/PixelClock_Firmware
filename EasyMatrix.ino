@@ -4,6 +4,7 @@
 #include "buzzer.h"
 #include "net.h"
 #include "task.h"
+#include "ds3231.h"
 
 /**
 EasyMatrix像素时钟  版本1.4
@@ -21,7 +22,8 @@ EasyMatrix像素时钟  版本1.4
 
 unsigned long prevDisplay = 0;
 unsigned long prevSampling = 0;
-int prevBrightness = -1;
+int prevBrightness = -1; // 默认上一个亮度
+uint cnt_compare = 0; //对比时间计数
 
 void setup() {
 
@@ -34,10 +36,17 @@ void setup() {
   // 初始化点阵屏(包含拾音器)
   initMatrix();
   // 创建加载动画任务
-  createShowTextTask("START");
+  // createShowTextTask("START");
+
+  //初始化IIC
+  rtc_init(SDA, SCL);
+
+
   // 初始化按键
   btnInit();
   Serial.println("各外设初始化成功");
+    // 创建加载动画任务  --  动画放到这里了
+  createShowTextTask("START");
   // nvs中没有WiFi信息，进入配置页面
   if (apConfig) {
     currentPage = SETTING;  // 将页面置为配网页面
@@ -46,26 +55,47 @@ void setup() {
     // 连接WiFi,30秒超时后显示wifi连接失败的图案
     connectWiFi(30);
     // 如果连接上了wifi,就进行NTP对时,超过30秒对时失败，就进入节奏灯页面
-    if (wifiConnected) {
+    if(wifiConnected){
       checkTime(30);
-      if (RTCSuccess) {
-        // 开启对时任务
-        startTickerCheckTime();
-        // RTC对时成功，并且闹钟开启后，设置闹钟倒计时
-        if (clockOpen) {
-          startTickerClock(getClockRemainSeconds());
-        }
-        // 将页面置为时间页面
-        currentPage = TIME;
-        // 停止启动加载文字的动画
-        vTaskDelete(showTextTask);
-        delay(300);
-        // 清屏
-        clearMatrix();
-      }
+    }
+    if(!RTCSuccess){       
+      Serial.println("时钟WIFI对时超时...使用外部RTC时间");
+      sync_RTC_sysTime();
+      // 屏幕显示使用RTC时间
+      drawPass(3, 22, "RTC");
+      delay(2000);
+      // 清空屏幕
+      clearMatrix();
+      RTCSuccess = true;  
+    }
+    //显示RTC时钟和系统时钟
+    rtc2mez();
+    Serial.printf("RTC Time: %d-%d-%d %d:%d:%d\r\n",MEZ.jahr12,MEZ.mon12,MEZ.tag12,MEZ.std12,MEZ.min12,MEZ.sek12);
+    //系统时间
+    time_t now;
+    time(&now);
+    tm* tt;
+    tt = localtime(&now);
+    Serial.printf("系统时间：%s\r\n", asctime(tt)); 
+
+    // 开启对时任务
+    startTickerCheckTime();
+    // RTC对时成功，并且闹钟开启后，设置闹钟倒计时
+    if(clockOpen){
+      startTickerClock(getClockRemainSeconds());
+    }
+    // 将页面置为时间页面
+    currentPage = TIME; 
+
+    if(wifiConnected){
+      // 停止启动加载文字的动画
+      vTaskDelete(showTextTask);
+      delay(300);
       // 关闭wifi
       disConnectWifi();
-    }
+    }    
+    // 清屏
+    clearMatrix();
   }
 }
 
@@ -120,7 +150,8 @@ void loop() {
       case TIME:  // 时钟页面
         if ((millis() - prevDisplay) >= 50 || prevDisplay > millis()) {
           // 绘制时间
-          drawTime();
+          // drawTime();
+          drawTime(RTC_MODE);
           prevDisplay = millis();
         }
         break;

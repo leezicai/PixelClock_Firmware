@@ -7,6 +7,7 @@
 #include "common.h"
 #include "preferencesUtil.h"
 #include "task.h"
+#include "ds3231.h"
 
 int clockColor[3];
 uint16_t mainColor;
@@ -25,6 +26,8 @@ int hour,minu,sec; // 之前显示的时、分、秒的数值
 int timeIndex = 0; // 滑动动画帧数指针
 int animIndex = 0; // 时钟页面动画索引
 int timeModel; // 时间跳变模式
+
+bool RTC_MODE = true; //时间模式，true使用外部RTC，false使用内部RTC
 // 闹钟页面
 bool clockOpen; // 闹钟是否开启
 int clockH,clockM,clockBellNum; // 闹钟时、分、闹铃编号
@@ -429,12 +432,12 @@ void clearMatrix(){
 }
 
 // 绘制对时文字
-void drawCheckTimeText(){
-  matrix.fillScreen(0);
-  matrix.setBrightness(brightness);
-  matrix.drawBitmap(0, 0, checkingTime, 32, 8, mainColor);
-  matrix.show();
-}
+// void drawCheckTimeText(){
+//   matrix.fillScreen(0);
+//   matrix.setBrightness(brightness);
+//   matrix.drawBitmap(0, 0, checkingTime, 32, 8, mainColor);
+//   matrix.show();
+// }
 
 // 绘制文字
 void drawText(int x, int y, String text){
@@ -446,6 +449,16 @@ void drawText(int x, int y, String text){
   matrix.print(text);
   matrix.show();
 }
+// 绘制对时文字
+void drawCheckTimeText(){
+  //修改为英文的方式，原来的中文屏幕小，字体太丑了
+  drawText(0,6,"GET TIME");
+  // 原版中文备份
+  // matrix.fillScreen(0);
+  // matrix.setBrightness(brightness);
+  // matrix.drawBitmap(0, 0, checkingTime, 32, 8, mainColor);
+  // matrix.show();
+}
 
 // 绘制wifi连接错误的文字和图案
 void drawFailed(int textX, int failedX, String text){
@@ -453,6 +466,16 @@ void drawFailed(int textX, int failedX, String text){
   matrix.setCursor(failedX,6);
   matrix.setTextColor(matrix.Color(255, 0, 0));
   matrix.print("X");
+  matrix.setBrightness(brightness);
+  matrix.show();
+}
+
+// 绘制RTC读取成功的文字和图案
+void drawPass(int textX, int failedX, String text){
+  drawText(textX, 6, text);
+  matrix.setCursor(failedX,6);
+  matrix.setTextColor(matrix.Color(0, 255, 0));
+  matrix.print("OK");
   matrix.setBrightness(brightness);
   matrix.show();
 }
@@ -473,13 +496,27 @@ void showIp(){
 }
 
 // 绘制时间页面
-void drawTime(){
+void drawTime(bool RTC_TYPE){
   // 获取RTC时间
   struct tm timeinfo;
-  if (!getLocalTime(&timeinfo)){
-    Serial.println("获取RTC时间失败");
-    return;
+   if (RTC_TYPE){
+    //使用外部RTC时钟
+    rtc2mez();
+    timeinfo.tm_sec = MEZ.sek12;
+    timeinfo.tm_min = MEZ.min12;
+    timeinfo.tm_hour = MEZ.std12;
+    timeinfo.tm_mday = MEZ.tag12;
+    timeinfo.tm_mon = MEZ.mon12 - 1;
+    timeinfo.tm_year = MEZ.jahr12;
+    timeinfo.tm_wday = MEZ.WT;
   }
+  else {
+    if (!getLocalTime(&timeinfo)){
+    Serial.println("获取内部RTC时间失败");
+    return;
+    }
+  }
+
   matrix.setBrightness(brightness);
   matrix.setFont(&MyFont);
   matrix.setTextColor(mainColor);

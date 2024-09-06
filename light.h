@@ -34,13 +34,17 @@ extern bool clockOpen;
 extern int clockChoosed;
 extern bool drawTimeFirstTime;
 extern int timeIndex;
+extern bool RTC_MODE;
+
 void initMatrix();
 void drawWifiText();
 void drawText(int x, int y, String text);
 void drawCheckTimeText();
 void drawFailed(int textX, int failedX, String text);
+void drawPass(int textX, int failedX, String text);
 void clearMatrix();
-void drawTime();
+// void drawTime();
+void drawTime(bool RTC_TYPE);
 void showIp();
 void drawBright();
 void drawAnim();

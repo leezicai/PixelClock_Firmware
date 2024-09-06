@@ -6,6 +6,7 @@
 #include "preferencesUtil.h"
 #include "light.h"
 #include "task.h"
+#include "ds3231.h"
 
 void sendNTPpacket(IPAddress &address);
 void connectWiFi(int timeOut_s);
@@ -121,12 +122,12 @@ void connectWiFi(int timeOut_s){
       delay(300);
       // 屏幕显示wifi连接失败
       drawFailed(4, 24, "WIFI");
-      delay(2000);
+      delay(1000);
       // 清空屏幕
       clearMatrix();
       // 至节奏灯页面
-      currentPage = RHYTHM;
-      // 跳出循环
+      // currentPage = RHYTHM;
+      // 跳出循环, 退出函数
       return;
     }
   }
@@ -226,28 +227,40 @@ void checkTime(int limitTime){
     time_t end;
     time(&end);
     if((end - start) > limitTime){
-      Serial.println("时钟对时超时...");
-      // RTCSuccess初始化时就是false，所以只需要在对时成功后赋值true就可以
-      // 这样也可以在启动对时成功，之后每小时一次对时失败时，不会将RTCSuccess置为false，影响某些程序运行
-      // RTCSuccess = false;
-      // 停止启动加载动画
-      vTaskDelete(showTextTask);
-      delay(300);
-      // 屏幕显示TIME获取失败
-      drawFailed(4, 24, "TIME");
-      delay(2000);
-      // 清空屏幕
-      clearMatrix();
-      // 至节奏灯页面
-      currentPage = RHYTHM;
+      // Serial.println("时钟对时超时...");
+      // // RTCSuccess初始化时就是false，所以只需要在对时成功后赋值true就可以
+      // // 这样也可以在启动对时成功，之后每小时一次对时失败时，不会将RTCSuccess置为false，影响某些程序运行
+      // // RTCSuccess = false;
+      // // 停止启动加载动画
+      // vTaskDelete(showTextTask);
+      // delay(300);
+      // // 屏幕显示TIME获取失败
+      // drawFailed(4, 24, "TIME");
+      // delay(2000);
+      // // 清空屏幕
+      // clearMatrix();
+      // // 至节奏灯页面
+      // currentPage = RHYTHM;
+
+      Serial.println("时钟WIFI对时超时...");
       // 跳出循环
       return;
     }
-    Serial.println("时钟对时失败...");
+     Serial.println("时钟WIFI对时失败...");
     getNTPTime();
   }
   // 到了这一步，说明对时成功
   RTCSuccess = true;
+
+  time_t now;
+  time(&now);
+  tm* tt;
+  tt = localtime(&now);
+  rtc_set(tt);
+  Serial.printf("写入RTC时间：%s\r\n", asctime(tt)); 
+  //读取RTC时间验证
+  rtc2mez();
+  Serial.printf("读取RTC Time: %d-%d-%d %d:%d:%d\r\n",MEZ.jahr12,MEZ.mon12,MEZ.tag12,MEZ.std12,MEZ.min12,MEZ.sek12); 
 }
 
 // 关闭wifi
@@ -265,8 +278,9 @@ void checkTimeTicker(){
     delay(500);
     connectTime++;
     if (connectTime > 20){ //循环20次（10秒）连接不上，就退出
-      Serial.println("网络连接失败...");
+      Serial.println("网络连接失败...使用RTC时间");
       wifiConnected = false;
+      sync_RTC_sysTime();
       // 跳出循环
       break;
     }
@@ -274,7 +288,8 @@ void checkTimeTicker(){
   // wifi连接成功，进行对时
   if(wifiConnected){
     // 只对一次，不管是否成功，因为启动时已经成功进行了对时，这次无关紧要
-    getNTPTime();
+    // getNTPTime();
+    checkTime(20);
     // 对时后如果闹钟开启，就重置闹钟时间
     if(clockOpen){
       tickerClock.detach();

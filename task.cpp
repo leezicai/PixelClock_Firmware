@@ -213,7 +213,8 @@ void btn1click(){
       recordExtensionPage();
       // 绘制时间
       drawTimeFirstTime = true;
-      drawTime();
+      // drawTime();
+      drawTime(RTC_MODE);
       break;
     case RHYTHM:
       if(rhythmPage == RHYTHM_MODEL1){
@@ -309,7 +310,8 @@ void btn2click(){
       recordExtensionPage();
       // 绘制时间
       drawTimeFirstTime = true;
-      drawTime();
+      // drawTime();
+      drawTime(RTC_MODE);
       break;
     case RHYTHM:
       if(rhythmPage == RHYTHM_MODEL1){

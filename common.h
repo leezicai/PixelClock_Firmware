@@ -14,8 +14,8 @@
 #include "img/bell.h"
 #include "img/checkingTime.h"
 
+// 引脚, 不能重复使用
 #define DATAPIN               6 // 灯珠矩阵输入引脚
-#define LIGHTCOUNT            256 // 灯珠个数
 #define BTN1                  5 // 按钮1
 #define BTN2                  4 // 按钮2
 #define BTN3                  8 // 按钮3
@@ -23,12 +23,16 @@
 #define AUDIO_IN_PIN          1 // 拾音器
 #define LIGHT_ADC             2 // 光敏电阻ADC引脚
 #define POW_LED               3 //电源按钮开关LED控制引脚
+#define RANDOM_SEED_PIN       11 // 随机数种子引脚
+#define SDA                   9 // Pin sda (I2C)
+#define SCL                   13 // Pin scl (I2C)
+
+#define LIGHTCOUNT            256 // 灯珠个数
 #define BRIGHTNESS            16 // 默认亮度
 #define MATRIX_SIDE           8 //每个矩阵的边长
 #define MATRIX_WIDTH          32 //矩阵总宽度
 #define MATRIX_COUNT          4 //矩阵数量
 #define BRIGHTNESS_SPACING    5 //每次调节亮度的间隔大小
-#define RANDOM_SEED_PIN       11 // 随机数种子引脚
 #define NTP3                  "ntp4.ntsc.ac.cn"
 #define NTP2                  "ntp3.ict.ac.cn"
 #define NTP1                  "ntp2.aliyun.com"
@@ -39,7 +43,7 @@
 #define NOISE                 1770   //噪音
 #define BAR_WIDTH             1 //每个频段的宽度
 #define ONE_DAY_SECONDS       24 * 60 * 60 // 一天的秒数
-#define TIME_CHECK_INTERVAL   10800 // NTP对时间隔（s）, 18000秒即为5小时
+#define TIME_CHECK_INTERVAL   18000 // NTP对时间隔（s）, 18000秒即为5小时
 #define BRIGHT_SAMPLING_TIMES 1 // 每轮亮度采样次数
 
 // 时钟页面下的小页面
