@@ -25,7 +25,7 @@
 #define POW_LED               3 //电源按钮开关LED控制引脚
 #define RANDOM_SEED_PIN       11 // 随机数种子引脚
 #define SDA                   9 // Pin sda (I2C)
-#define SCL                   13 // Pin scl (I2C)
+#define SCL                   10 // Pin scl (I2C)
 
 #define LIGHTCOUNT            256 // 灯珠个数
 #define BRIGHTNESS            16 // 默认亮度
