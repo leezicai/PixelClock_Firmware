@@ -69,7 +69,7 @@ arduinoFFT FFT = arduinoFFT(vReal, vImag, SAMPLES, SAMPLING_FREQ);
 int model2ColorArray[2][3] = {{0, 220, 255}, {240, 45, 255}};
 int model4ColorArrar[8][3] = {{240, 45, 255},{253, 98, 248},{253, 169, 205},{255, 196, 123},{253, 214, 200},{253, 192, 255},{249, 175, 255},{0, 220, 255}};
 
-Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(MATRIX_SIDE, MATRIX_SIDE, MATRIX_COUNT, 1, DATAPIN,
+Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(32, MATRIX_SIDE, 1, 1, DATAPIN,
 NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE + 
 NEO_TILE_TOP + NEO_TILE_LEFT + NEO_TILE_ROWS + NEO_TILE_PROGRESSIVE, NEO_GRB + NEO_KHZ800);
 
@@ -452,7 +452,7 @@ void drawText(int x, int y, String text){
 // 绘制对时文字
 void drawCheckTimeText(){
   //修改为英文的方式，原来的中文屏幕小，字体太丑了
-  drawText(0,6,"GET TIME");
+  drawText(0,6,"Sync Time");
   // 原版中文备份
   // matrix.fillScreen(0);
   // matrix.setBrightness(brightness);
