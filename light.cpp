@@ -506,7 +506,7 @@ void drawTime(bool RTC_TYPE){
     timeinfo.tm_min = MEZ.min12;
     timeinfo.tm_hour = MEZ.std12;
     timeinfo.tm_mday = MEZ.tag12;
-    timeinfo.tm_mon = MEZ.mon12 - 1;
+    timeinfo.tm_mon = MEZ.mon12;
     timeinfo.tm_year = MEZ.jahr12;
     timeinfo.tm_wday = MEZ.WT;
   }
