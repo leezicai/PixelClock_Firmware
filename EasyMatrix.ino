@@ -103,7 +103,7 @@ void loop() {
 
   // 只有在亮度值发生变化时才更新电源灯的亮度
   if (brightness != prevBrightness) {
-    analogWrite(POW_LED, brightness * 5);
+    analogWrite(POW_LED, brightness * 4);
     prevBrightness = brightness;
   }
 
