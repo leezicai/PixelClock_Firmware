@@ -280,7 +280,7 @@ void checkTimeTicker(){
     if (connectTime > 20){ //循环20次（10秒）连接不上，就退出
       Serial.println("网络连接失败...使用RTC时间");
       wifiConnected = false;
-      sync_RTC_sysTime();
+      // sync_RTC_sysTime();
       // 跳出循环
       break;
     }
