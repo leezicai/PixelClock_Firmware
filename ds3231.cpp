@@ -153,7 +153,7 @@ void rtc_set(tm* tt) {
     rtc_minute((unsigned char) tt->tm_min);
     rtc_stunde((unsigned char) tt->tm_hour);
     rtc_tag((unsigned char) tt->tm_mday);
-    rtc_monat((unsigned char) tt->tm_mon );
+    rtc_monat((unsigned char) tt->tm_mon + 1);
     rtc_jahr((unsigned char) tt->tm_year - 100);
     if (tt->tm_wday == 0)
     {
